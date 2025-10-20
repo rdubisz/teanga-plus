@@ -1,2 +1,3 @@
-# teanga-plus
+# Teanga+
+
 Irish Language Game
