@@ -4,11 +4,17 @@ class_name ChooseFromNineLesson extends Node
 
 
 var lesson_name: String
+const number_of_steps := 10
+# Raw data of Dictionary[String,Array[String]], example:
+# { "question": ["correct1", "correct2"] }
 var raw_data: Dictionary
+# An array of all answers for any question in raw data
 var all_answers: Array[String]
-var steps: Array
+# An Array[Dictionary[String,Array]] of prepared steps, example:
+# {"question": "what char?","correct_answers": ["a", "b"],"choices": ["a", "b", "c", "d"],"chosen": ""}
+# "chosen" is empty for unanswered steps
+var steps: Array # 
 var current_step_number := 0
-var number_of_steps := 10
 
 
 func load_raw_data():
@@ -64,19 +70,26 @@ func number_of_remaining_steps() -> int:
 	return steps.size() - current_step_number
 
 
-func number_of_correct_answers() -> int:
+func number_of_correct_and_wrong_answers() -> Dictionary[String, int]:
 	var found_correct := 0
-	for a_step in steps:
-		if a_step["chosen"] != "":
-			if a_step["correct_answers"].has(a_step["chosen"]):
-				found_correct += 1
-	return found_correct
-
-
-func number_of_wrong_answers() -> int:
 	var found_wrong := 0
 	for a_step in steps:
-		if a_step["chosen"] != "":
-			if not a_step["correct_answers"].has(a_step["chosen"]):
+		var corectness := check_step_answer(a_step)
+		match corectness:
+			1:
+				found_correct += 1
+			-1:
 				found_wrong += 1
-	return found_wrong
+	return {
+		"correct": found_correct,
+		"wrong": found_wrong
+		}
+
+
+func check_step_answer(a_step: Dictionary) -> int:
+	if a_step["chosen"] as String == "":
+		return 0
+	elif a_step["correct_answers"].has(a_step["chosen"]):
+		return 1
+	else:
+		return -1

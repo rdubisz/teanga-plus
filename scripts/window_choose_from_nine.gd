@@ -15,6 +15,8 @@ var lesson :ChooseFromNineLesson
 @onready var btn_answer_6: Button = $MarginOuter/VBoxOuter/MarginChoices/Grid/ButtonAnswer6
 @onready var btn_answer_7: Button = $MarginOuter/VBoxOuter/MarginChoices/Grid/ButtonAnswer7
 @onready var btn_answer_8: Button = $MarginOuter/VBoxOuter/MarginChoices/Grid/ButtonAnswer8
+@onready var hand_reaction: TextureRect = $MarginOuter/VBoxOuter/MarginReaction/HBoxReaction/TextureRectReactionHandBg/TextureRectReactionHandFg
+@onready var face_reaction: TextureRect = $MarginOuter/VBoxOuter/MarginReaction/HBoxReaction/TextureRectReactionFaceBg/TextureRectReactionFaceFg
 
 
 # Called when the node enters the scene tree for the first time.
@@ -45,8 +47,23 @@ func draw_step(step_num: int):
 	btn_answer_7.text = step["choices"][7]
 	btn_answer_8.text = step["choices"][8]
 	lbl_remaining.text = str(lesson.number_of_remaining_steps())
-	lbl_correct.text = str(lesson.number_of_correct_answers())
-	lbl_wrong.text = str(lesson.number_of_wrong_answers())
+	var results := lesson.number_of_correct_and_wrong_answers()
+	lbl_correct.text = str(results["correct"])
+	lbl_wrong.text = str(results["wrong"])
+	hand_reaction.texture = load("res://assets/pink_hand_point.png")
+	face_reaction.texture = load("res://assets/face_h.png")
+	lbl_remaining.scale.x = 1
+	lbl_remaining.scale.y = lbl_remaining.scale.x
+	lbl_remaining.pivot_offset.x = lbl_remaining.size.x/2
+	lbl_remaining.pivot_offset.y = lbl_remaining.size.y/2
+	lbl_correct.scale.x = 1
+	lbl_correct.scale.y = lbl_correct.scale.x
+	lbl_correct.pivot_offset.x = lbl_correct.size.x/2
+	lbl_correct.pivot_offset.y = lbl_correct.size.y/2
+	lbl_wrong.scale.x = 1
+	lbl_wrong.scale.y = lbl_wrong.scale.x
+	lbl_wrong.pivot_offset.x = lbl_wrong.size.x/2
+	lbl_wrong.pivot_offset.y = lbl_wrong.size.y/2
 
 
 func process_step(step_num: int, option_chosen: String):
@@ -57,48 +74,68 @@ func process_step(step_num: int, option_chosen: String):
 	var step = lesson.steps[step_num]
 	step["chosen"] = option_chosen
 	lesson.current_step_number += 1
+	var result := lesson.check_step_answer(step)
+	lbl_remaining.scale.x = 2
+	lbl_remaining.scale.y = lbl_remaining.scale.x
+	lbl_remaining.pivot_offset.x = lbl_remaining.size.x/2
+	lbl_remaining.pivot_offset.y = lbl_remaining.size.y/2
+	if result > 0:
+		$AudioPlayerYes.play()
+		hand_reaction.texture = load("res://assets/green_hand_thumb.png")
+		face_reaction.texture = load("res://assets/face_a.png")
+		lbl_correct.scale.x = 2
+		lbl_correct.scale.y = lbl_correct.scale.x
+		lbl_correct.pivot_offset.x = lbl_correct.size.x/2
+		lbl_correct.pivot_offset.y = lbl_correct.size.y/2
+	else:
+		$AudioPlayerNo.play()
+		hand_reaction.texture = load("res://assets/red_hand_open.png")
+		face_reaction.texture = load("res://assets/face_i.png")
+		lbl_wrong.scale.x = 2
+		lbl_wrong.scale.y = lbl_wrong.scale.x
+		lbl_wrong.pivot_offset.x = lbl_wrong.size.x/2
+		lbl_wrong.pivot_offset.y = lbl_wrong.size.y/2
 
 
 func _on_button_answer_0_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_0.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_1_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_1.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_2_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_2.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_3_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_3.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_4_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_4.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_5_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_5.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_6_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_6.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_7_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_7.text)
-	draw_step(lesson.current_step_number)
 
 
 func _on_button_answer_8_pressed() -> void:
 	process_step(lesson.current_step_number, btn_answer_8.text)
+
+
+func _on_audio_player_yes_finished() -> void:
+	draw_step(lesson.current_step_number)
+
+
+func _on_audio_player_no_finished() -> void:
 	draw_step(lesson.current_step_number)
