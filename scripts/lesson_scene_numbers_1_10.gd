@@ -1,0 +1,135 @@
+extends Node2D
+
+var lesson :ChooseFromNineLesson
+
+@onready var lbl_query: Label = $MarginContainer/VBoxContainer/TextureRect/LabelQuery
+@onready var lbl_progress: Label = $HBoxContainer/NinePatchRectProgress/LabelProgress
+@onready var lbl_correct: Label = $HBoxContainer/NinePatchRectCorrect/LabelCorrect
+@onready var lbl_wrong: Label = $HBoxContainer/NinePatchRectWrong/LabelWrong
+@onready var btn_answer_0: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect0/ButtonAnswer0
+@onready var btn_answer_1: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect1/ButtonAnswer1
+@onready var btn_answer_2: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect2/ButtonAnswer2
+@onready var btn_answer_3: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect3/ButtonAnswer3
+@onready var btn_answer_4: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect4/ButtonAnswer4
+@onready var btn_answer_5: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect5/ButtonAnswer5
+@onready var btn_answer_6: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect6/ButtonAnswer6
+@onready var btn_answer_7: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect7/ButtonAnswer7
+@onready var btn_answer_8: Button = $MarginContainer/VBoxContainer/CentralContainer/GridContainer/NinePatchRect8/ButtonAnswer8
+@onready var btn_exit: Button = $HBoxContainer/NinePatchRectExit/ButtonExit
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	print(OS.get_data_dir())
+	lesson = ChooseFromNineLesson.new()
+	lesson.lesson_name = "Numbers 1-10"
+	lesson.load_raw_data()
+	lesson.prepare_all_steps()
+	print(str(lesson.steps))
+	draw_step(lesson.current_step_number)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func draw_step(step_num: int):
+	if step_num >= lesson.number_of_steps:
+		print("Lesson finished")
+		return
+		
+	var step = lesson.steps[step_num]
+	lbl_query.text = step["question"]
+	btn_answer_0.text = step["choices"][0]
+	btn_answer_1.text = step["choices"][1]
+	btn_answer_2.text = step["choices"][2]
+	btn_answer_3.text = step["choices"][3]
+	btn_answer_4.text = step["choices"][4]
+	btn_answer_5.text = step["choices"][5]
+	btn_answer_6.text = step["choices"][6]
+	btn_answer_7.text = step["choices"][7]
+	btn_answer_8.text = step["choices"][8]
+	lbl_progress.text = "Progress\n" + str(lesson.number_of_remaining_steps())
+	var results := lesson.number_of_correct_and_wrong_answers()
+	lbl_correct.text = "Correct\n" + str(results["correct"])
+	lbl_wrong.text = "Wrong\n" + str(results["wrong"])
+	#hand_reaction.texture = load("res://assets/pink_hand_point.png")
+	#face_reaction.texture = load("res://assets/face_h.png")
+	scale_component(lbl_progress, 1.0)
+	scale_component(lbl_correct, 1.0)
+	scale_component(lbl_wrong, 1.0)
+
+
+func process_answer(step_num: int, option_chosen: String):
+	if step_num >= lesson.number_of_steps:
+		print("Lesson finished")
+		return
+
+	var step = lesson.steps[step_num]
+	step["chosen"] = option_chosen
+	lesson.current_step_number += 1
+	var result := lesson.check_step_answer(step)
+	scale_component(lbl_progress, 1.1)
+	if result > 0:
+		$AudioCorrect.play()
+		#hand_reaction.texture = load("res://assets/green_hand_thumb.png")
+		#face_reaction.texture = load("res://assets/face_a.png")
+		scale_component(lbl_correct, 1.1)
+	else:
+		$AudioWrong.play()
+		#hand_reaction.texture = load("res://assets/red_hand_open.png")
+		#face_reaction.texture = load("res://assets/face_i.png")
+		scale_component(lbl_wrong, 1.1)
+
+
+func scale_component(component: Control, scale: float) -> void:
+	component.scale.x = scale
+	component.scale.y = component.scale.x
+	component.pivot_offset.x = component.size.x/2
+	component.pivot_offset.y = component.size.y/2
+
+func _on_button_answer_0_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_0.text)
+
+
+func _on_button_answer_1_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_1.text)
+
+
+func _on_button_answer_2_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_2.text)
+
+
+func _on_button_answer_3_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_3.text)
+
+
+func _on_button_answer_4_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_4.text)
+
+
+func _on_button_answer_5_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_5.text)
+
+
+func _on_button_answer_6_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_6.text)
+
+
+func _on_button_answer_7_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_7.text)
+
+
+func _on_button_answer_8_pressed() -> void:
+	process_answer(lesson.current_step_number, btn_answer_8.text)
+
+
+func _on_button_exit_pressed() -> void:
+	get_tree().change_scene_to_file("res://scene/main_menu_scene.tscn")
+
+
+func _on_audio_correct_finished() -> void:
+	draw_step(lesson.current_step_number)
+
+
+func _on_audio_wrong_finished() -> void:
+	draw_step(lesson.current_step_number)

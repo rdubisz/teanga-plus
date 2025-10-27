@@ -11,9 +11,21 @@ config_version=5
 [application]
 
 config/name="Teanga+"
-run/main_scene="uid://by50vi57jukcg"
+run/main_scene="uid://ck1k70hnq8rx3"
 config/features=PackedStringArray("4.5", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon/icon.svg"
+
+[display]
+
+window/size/viewport_width=480
+window/size/viewport_height=832
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
+
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
 
 [rendering]
 

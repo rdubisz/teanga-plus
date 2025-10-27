@@ -18,7 +18,7 @@ var current_step_number := 0
 
 
 func load_raw_data():
-	var load_file = FileAccess.open("res://assets/choose_from_nine_raw_data.json", FileAccess.READ)
+	var load_file = FileAccess.open("res://assets/data/choose_from_nine_raw_data.json", FileAccess.READ)
 	print("loading: " + load_file.get_path_absolute())
 	var json_text = load_file.get_as_text()
 	var json = JSON.new()
