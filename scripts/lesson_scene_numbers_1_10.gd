@@ -20,10 +20,7 @@ var lesson :ChooseFromNineLesson
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print(OS.get_data_dir())
-	lesson = ChooseFromNineLesson.new()
-	lesson.lesson_name = "Numbers 1-10"
-	lesson.load_raw_data()
-	lesson.prepare_all_steps()
+	lesson = ChooseFromNineLesson.new(20, "Numbers 1-10", "choose_from_nine_raw_data", 9, 10)
 	print(str(lesson.steps))
 	draw_step(lesson.current_step_number)
 
@@ -33,7 +30,7 @@ func _process(delta: float) -> void:
 	pass
 
 func draw_step(step_num: int):
-	if step_num >= lesson.number_of_steps:
+	if step_num >= lesson.steps.size():
 		print("Lesson finished")
 		return
 		
@@ -48,38 +45,35 @@ func draw_step(step_num: int):
 	btn_answer_6.text = step["choices"][6]
 	btn_answer_7.text = step["choices"][7]
 	btn_answer_8.text = step["choices"][8]
-	lbl_progress.text = "Progress\n" + str(lesson.number_of_remaining_steps())
+	lbl_progress.text = "Progress\n" + str(step_num) + "/"+ str(lesson.steps.size())
 	var results := lesson.number_of_correct_and_wrong_answers()
 	lbl_correct.text = "Correct\n" + str(results["correct"])
 	lbl_wrong.text = "Wrong\n" + str(results["wrong"])
-	#hand_reaction.texture = load("res://assets/pink_hand_point.png")
-	#face_reaction.texture = load("res://assets/face_h.png")
+	btn_exit.icon = load("res://assets/icon/arrowLeft.png")
 	scale_component(lbl_progress, 1.0)
 	scale_component(lbl_correct, 1.0)
 	scale_component(lbl_wrong, 1.0)
+	get_viewport().gui_release_focus()
 
 
 func process_answer(step_num: int, option_chosen: String):
-	if step_num >= lesson.number_of_steps:
+	if step_num >= lesson.steps.size():
 		print("Lesson finished")
 		return
 
 	var step = lesson.steps[step_num]
 	step["chosen"] = option_chosen
-	lesson.current_step_number += 1
-	var result := lesson.check_step_answer(step)
+	var result := lesson.steps[lesson.current_step_number].check_choice()
 	scale_component(lbl_progress, 1.1)
 	if result > 0:
 		$AudioCorrect.play()
-		#hand_reaction.texture = load("res://assets/green_hand_thumb.png")
-		#face_reaction.texture = load("res://assets/face_a.png")
+		btn_exit.icon = load("res://assets/icon/face_a.png")
 		scale_component(lbl_correct, 1.1)
 	else:
 		$AudioWrong.play()
-		#hand_reaction.texture = load("res://assets/red_hand_open.png")
-		#face_reaction.texture = load("res://assets/face_i.png")
+		btn_exit.icon = load("res://assets/icon/face_i.png")
 		scale_component(lbl_wrong, 1.1)
-
+	lesson.current_step_number += 1
 
 func scale_component(component: Control, scale: float) -> void:
 	component.scale.x = scale

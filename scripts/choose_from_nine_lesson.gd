@@ -4,22 +4,31 @@ class_name ChooseFromNineLesson extends Node
 
 
 var lesson_name: String
-const number_of_steps := 10
+var number_of_choices: int
 # Raw data of Dictionary[String,Array[String]], example:
 # { "question": ["correct1", "correct2"] }
 var raw_data: Dictionary
 # An array of all answers for any question in raw data
 var all_answers: Array[String]
-# An Array[Dictionary[String,Array]] of prepared steps, example:
-# {"question": "what char?","correct_answers": ["a", "b"],"choices": ["a", "b", "c", "d"],"chosen": ""}
-# "chosen" is empty for unanswered steps
-var steps: Array # 
+# An Array of steps - they can be answered or not
+var steps: Array[ChooseFromNineStep]
 var current_step_number := 0
 
 
-func load_raw_data():
-	var load_file = FileAccess.open("res://assets/data/choose_from_nine_raw_data.json", FileAccess.READ)
-	print("loading: " + load_file.get_path_absolute())
+func _init(a_number_of_steps: int, a_lesson_name: String, a_data_file_name: String, a_number_of_choices: int = 9, only_first_x_data_rows: int = -1):
+	self.lesson_name = a_lesson_name
+	self.number_of_choices = a_number_of_choices
+	load_raw_data(a_data_file_name)
+	prepare_all_steps(a_number_of_steps, only_first_x_data_rows)
+
+
+func _to_string():
+	return "Lesson1of9{ name:" + lesson_name + ", prgs:" + str(current_step_number) + "/" + str(steps.size()) + ", raw_size:" + str(raw_data.size()) + ", all_answers:" + str(all_answers.size()) + "}"
+
+
+func load_raw_data(a_data_file_name: String):
+	var load_file = FileAccess.open("res://assets/data/" + a_data_file_name + ".json", FileAccess.READ)
+	print("Loading raw data: " + load_file.get_path_absolute() + "; for lesson " + lesson_name)
 	var json_text = load_file.get_as_text()
 	var json = JSON.new()
 	var error = json.parse(json_text)
@@ -32,40 +41,30 @@ func load_raw_data():
 			print("Unexpected data")
 	else:
 		print("JSON Parse Error: ", json.get_error_message(), " in ", json_text, " at line ", json.get_error_line())
-	
 	for key in raw_data:
-		print(str(raw_data[key]))
-		all_answers.append_array(raw_data[key])
+			print(str(raw_data[key]))
+			all_answers.append_array(raw_data[key])
 
-# TODO prevent duplicated questions
-func prepare_all_steps():
-	for step_num in number_of_steps:
-		prepare_single_step(step_num)
 
-func prepare_single_step(step_num: int):
-	var raw_data_entry_number := randi_range(0, raw_data.size() - 1)
+func prepare_all_steps(a_number_of_steps: int, only_first_x_data_rows: int = -1):
+	for step_num in a_number_of_steps:
+		steps.append(prepare_single_step(step_num, only_first_x_data_rows))
+
+
+func prepare_single_step(step_num: int, only_first_x_data_rows: int = -1) -> ChooseFromNineStep:
+	var range_reduced := raw_data.size() -1
+	if only_first_x_data_rows > -1:
+		range_reduced = range_reduced % only_first_x_data_rows
+	var raw_data_entry_number := randi_range(0,  range_reduced)
 	var question: String = raw_data.keys()[raw_data_entry_number]
-	var correct_answers = raw_data[question]
-	print("raw_data_entry-> " + question + ": " + str(correct_answers))
-	steps.append({
-		"question": question,
-		"correct_answers": correct_answers,
-		"choices": prepare_choices(correct_answers),
-		"chosen": ""
-	})
+	var correct_answers: Array[String] 
+	correct_answers.assign(raw_data[question])
+	print("raw_data_entry " + question + ": " + str(correct_answers))
+	var step := ChooseFromNineStep.new(question, correct_answers, all_answers)
+	print("created step: " + str(step))
+	return step
 	
-# Prepare an array of 9 options, including at least one correct
-# TODO prevent duplicated answers
-func prepare_choices(correct: Array) -> Array:
-	var additional: Array[String]
-	for i in 9 - correct.size():
-		var random_answer_from_all := all_answers[randi_range(0, all_answers.size() - 1)]
-		additional.append(random_answer_from_all)
-	var nine_options := correct.duplicate()
-	nine_options.append_array(additional)
-	return nine_options
-
-
+#
 func number_of_remaining_steps() -> int:
 	return steps.size() - current_step_number
 
@@ -74,7 +73,7 @@ func number_of_correct_and_wrong_answers() -> Dictionary[String, int]:
 	var found_correct := 0
 	var found_wrong := 0
 	for a_step in steps:
-		var corectness := check_step_answer(a_step)
+		var corectness := a_step.check_choice()
 		match corectness:
 			1:
 				found_correct += 1
@@ -84,12 +83,3 @@ func number_of_correct_and_wrong_answers() -> Dictionary[String, int]:
 		"correct": found_correct,
 		"wrong": found_wrong
 		}
-
-
-func check_step_answer(a_step: Dictionary) -> int:
-	if a_step["chosen"] as String == "":
-		return 0
-	elif a_step["correct_answers"].has(a_step["chosen"]):
-		return 1
-	else:
-		return -1
