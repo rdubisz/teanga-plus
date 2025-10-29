@@ -1,0 +1,172 @@
+[gd_scene load_steps=10 format=3 uid="uid://delin1ih7niki"]
+
+[ext_resource type="Texture2D" uid="uid://ceneao5iwqheu" path="res://assets/texture/frame-full-size-marble.png" id="1_4ibjl"]
+[ext_resource type="Script" uid="uid://dbj37n5o171pm" path="res://scripts/lesson_finish_scene.gd" id="1_p0tud"]
+[ext_resource type="Texture2D" uid="uid://37jefh5dbj2" path="res://assets/texture/panel-450x97-marble.png" id="2_p0tud"]
+[ext_resource type="FontFile" uid="uid://wq2dq0yqhk7h" path="res://assets/font/PeaberryMono.ttf" id="3_njmb4"]
+[ext_resource type="Texture2D" uid="uid://0otqu07phd3j" path="res://assets/texture/panel-52x52-sand.png" id="4_q015y"]
+[ext_resource type="Texture2D" uid="uid://ivjtscwq6w8r" path="res://assets/texture/panel-52x52-green.png" id="5_bmunk"]
+[ext_resource type="Texture2D" uid="uid://cd4yso6mscsum" path="res://assets/texture/panel-52x52-stone.png" id="6_l8luo"]
+[ext_resource type="Texture2D" uid="uid://vsnfw6tp8ek2" path="res://assets/texture/button-52x52-marble.png" id="7_5qqro"]
+[ext_resource type="Texture2D" uid="uid://12wsxnlwajx2" path="res://assets/icon/arrowLeft.png" id="8_4bwrw"]
+
+[node name="LessonFinishScene" type="Node2D"]
+script = ExtResource("1_p0tud")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_4ibjl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_p0tud")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("3_njmb4")
+theme_override_font_sizes/font_size = 42
+text = "Lesson finished"
+
+[node name="GridSteps" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 97)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 777.0
+offset_right = 465.0
+offset_bottom = 817.0
+grow_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="NinePatchRectProgress" type="NinePatchRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_q015y")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 27
+patch_margin_bottom = 27
+
+[node name="LabelProgress" type="Label" parent="HBoxContainer/NinePatchRectProgress"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08266129
+anchor_top = 0.3556701
+anchor_right = 0.9173387
+anchor_bottom = 0.6443299
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_njmb4")
+theme_override_font_sizes/font_size = 18
+text = "Progress
+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRectCorrect" type="NinePatchRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_bmunk")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 27
+patch_margin_bottom = 27
+
+[node name="LabelCorrect" type="Label" parent="HBoxContainer/NinePatchRectCorrect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08266129
+anchor_top = 0.3556701
+anchor_right = 0.9173387
+anchor_bottom = 0.6443299
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_njmb4")
+theme_override_font_sizes/font_size = 18
+text = "Correct
+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRectWrong" type="NinePatchRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_l8luo")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 27
+patch_margin_bottom = 27
+
+[node name="LabelWrong" type="Label" parent="HBoxContainer/NinePatchRectWrong"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08266129
+anchor_top = 0.3556701
+anchor_right = 0.9173387
+anchor_bottom = 0.6443299
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_njmb4")
+theme_override_font_sizes/font_size = 18
+text = "Wrong
+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRectExit" type="NinePatchRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(97, 0)
+layout_mode = 2
+texture = ExtResource("7_5qqro")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="ButtonExit" type="Button" parent="HBoxContainer/NinePatchRectExit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("8_4bwrw")
+flat = true
+icon_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/NinePatchRectExit/ButtonExit" to="." method="_on_button_exit_pressed"]

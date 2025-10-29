@@ -47,8 +47,8 @@ func draw_step(step_num: int):
 	btn_answer_8.text = step["choices"][8]
 	lbl_progress.text = "Progress\n" + str(step_num) + "/"+ str(lesson.steps.size())
 	var results := lesson.number_of_correct_and_wrong_answers()
-	lbl_correct.text = "Correct\n" + str(results["correct"])
-	lbl_wrong.text = "Wrong\n" + str(results["wrong"])
+	lbl_correct.text = "Correct\n" + str(results[StepStatus.CORRECT])
+	lbl_wrong.text = "Wrong\n" + str(results[StepStatus.WRONG])
 	btn_exit.icon = load("res://assets/icon/arrowLeft.png")
 	scale_component(lbl_progress, 1.0)
 	scale_component(lbl_correct, 1.0)
@@ -59,6 +59,7 @@ func draw_step(step_num: int):
 func process_answer(step_num: int, option_chosen: String):
 	if step_num >= lesson.steps.size():
 		print("Lesson finished")
+		lesson_finished()
 		return
 
 	var step = lesson.steps[step_num]
@@ -80,6 +81,12 @@ func scale_component(component: Control, scale: float) -> void:
 	component.scale.y = component.scale.x
 	component.pivot_offset.x = component.size.x/2
 	component.pivot_offset.y = component.size.y/2
+
+
+func lesson_finished():
+	Global.current_results = lesson.steps
+	Global.goto_scene("res://scene/lesson_finish_scene.tscn")
+
 
 func _on_button_answer_0_pressed() -> void:
 	process_answer(lesson.current_step_number, btn_answer_0.text)
@@ -118,7 +125,8 @@ func _on_button_answer_8_pressed() -> void:
 
 
 func _on_button_exit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scene/main_menu_scene.tscn")
+	#get_tree().change_scene_to_file("res://scene/main_menu_scene.tscn")
+	Global.goto_scene("res://scene/main_menu_scene.tscn")
 
 
 func _on_audio_correct_finished() -> void:

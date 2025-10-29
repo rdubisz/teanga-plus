@@ -40,8 +40,8 @@ func prepare_choices(num_of_choices: int, a_corrects: Array[String], all_options
 
 func check_choice() -> int:
 	if chosen == "":
-		return 0
+		return StepStatus.UNANSWERED
 	elif correct_answers.has(chosen):
-		return 1
+		return StepStatus.CORRECT
 	else:
-		return -1
+		return StepStatus.WRONG

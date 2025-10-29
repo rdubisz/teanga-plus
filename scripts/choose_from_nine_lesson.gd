@@ -69,17 +69,17 @@ func number_of_remaining_steps() -> int:
 	return steps.size() - current_step_number
 
 
-func number_of_correct_and_wrong_answers() -> Dictionary[String, int]:
+func number_of_correct_and_wrong_answers() -> Dictionary[int, int]:
 	var found_correct := 0
 	var found_wrong := 0
 	for a_step in steps:
 		var corectness := a_step.check_choice()
 		match corectness:
-			1:
+			StepStatus.CORRECT:
 				found_correct += 1
-			-1:
+			StepStatus.WRONG:
 				found_wrong += 1
 	return {
-		"correct": found_correct,
-		"wrong": found_wrong
+		StepStatus.CORRECT: found_correct,
+		StepStatus.WRONG: found_wrong
 		}
