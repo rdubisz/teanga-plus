@@ -20,7 +20,7 @@ var lesson :ChooseFromNineLesson
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print(OS.get_data_dir())
-	lesson = ChooseFromNineLesson.new(10, "Numbers 1-10", "numbers_1in9_data", 9, 10)
+	lesson = ChooseFromNineLesson.new(10, "Numbers 1-10", "numbers.1in9.en2ie", 9, 10)
 	print(str(lesson.steps))
 	draw_step(lesson.current_step_number)
 
@@ -67,6 +67,10 @@ func process_answer(step_num: int, option_chosen: String):
 	var result := lesson.steps[lesson.current_step_number].check_choice()
 	scale_component(lbl_progress, 1.1)
 	if result > 0:
+		if ResourceLoader.exists("res://assets/sound/" + option_chosen + ".wav"):
+			$AudioCorrect.stream = load("res://assets/sound/" + option_chosen + ".wav")
+		else:
+			$AudioCorrect.stream = load("res://assets/sound/ta.ogg")
 		$AudioCorrect.play()
 		btn_exit.icon = load("res://assets/icon/face_a.png")
 		scale_component(lbl_correct, 1.1)

@@ -25,3 +25,6 @@ workspace.xml
 
 # Temporary files
 *.tmp
+
+*.wav
+*.wav.import

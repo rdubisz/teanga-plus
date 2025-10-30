@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ck1k70hnq8rx3"]
+[gd_scene load_steps=10 format=3 uid="uid://ck1k70hnq8rx3"]
 
 [ext_resource type="Script" uid="uid://tnw6115lejbh" path="res://scripts/main_menu_scene.gd" id="1_olc8l"]
 [ext_resource type="Texture2D" uid="uid://ceneao5iwqheu" path="res://assets/texture/frame-full-size-marble.png" id="2_hvgvx"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://vsnfw6tp8ek2" path="res://assets/texture/button-52x52-marble.png" id="5_olc8l"]
 [ext_resource type="Texture2D" uid="uid://b2402rkbbu6jw" path="res://assets/icon/question.png" id="6_ts6t1"]
 [ext_resource type="Texture2D" uid="uid://ccvxypx84y6mk" path="res://assets/icon/power.png" id="7_hvgvx"]
+[ext_resource type="AudioStream" uid="uid://qvdoq73gimt5" path="res://assets/sound/fáilte.ogg" id="8_1pb0y"]
+[ext_resource type="AudioStream" uid="uid://c8dhbw6ixxcrm" path="res://assets/sound/slán.ogg" id="9_olc8l"]
 
 [node name="MainMenuScene" type="Node2D"]
 script = ExtResource("1_olc8l")
@@ -194,7 +196,14 @@ icon = ExtResource("7_hvgvx")
 flat = true
 icon_alignment = 1
 
+[node name="AudioWelcome" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_1pb0y")
+
+[node name="AudioExit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_olc8l")
+
 [connection signal="pressed" from="CtnrMenu/VBoxMenu/NineRect1/BtnLessonNumbersOneToTen" to="." method="_on_btn_lesson_numbers_one_to_ten_pressed"]
 [connection signal="pressed" from="CtnrMenu/VBoxMenu/NineRect2/BtnLessonNumbersZeroToHundred" to="." method="_on_btn_lesson_numbers_zero_to_hundred_pressed"]
 [connection signal="pressed" from="CtnrMenu/VBoxMenu/NineRect3/BtLessonSubjectPronouns" to="." method="_on_bt_lesson_subject_pronouns_pressed"]
 [connection signal="pressed" from="HBoxBottom/NineRectExit/BtnExit" to="." method="_on_btn_exit_pressed"]
+[connection signal="finished" from="AudioExit" to="." method="_on_audio_exit_finished"]

@@ -20,7 +20,7 @@ var lesson :ChooseFromNineLesson
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print(OS.get_data_dir())
-	lesson = ChooseFromNineLesson.new(40, "Numbers 0-100", "numbers_1in9_data", 9)
+	lesson = ChooseFromNineLesson.new(40, "Numbers 0-100", "numbers.1in9.en2ie", 9)
 	print(str(lesson.steps))
 	draw_step(lesson.current_step_number)
 

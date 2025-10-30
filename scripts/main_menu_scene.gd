@@ -2,7 +2,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$AudioWelcome.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,4 +23,8 @@ func _on_bt_lesson_subject_pronouns_pressed() -> void:
 
 
 func _on_btn_exit_pressed() -> void:
+	$AudioExit.play()
+
+
+func _on_audio_exit_finished() -> void:
 	get_tree().quit()
