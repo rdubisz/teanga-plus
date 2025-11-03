@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://ck1k70hnq8rx3"]
 
 [ext_resource type="Script" uid="uid://tnw6115lejbh" path="res://scripts/main_menu_scene.gd" id="1_olc8l"]
-[ext_resource type="Texture2D" uid="uid://ceneao5iwqheu" path="res://assets/texture/frame-full-size-marble.png" id="2_hvgvx"]
-[ext_resource type="Texture2D" uid="uid://37jefh5dbj2" path="res://assets/texture/panel-450x97-marble.png" id="3_itgty"]
+[ext_resource type="Texture2D" uid="uid://cfxjmvblxcqye" path="res://assets/texture/bg-cliffs.png" id="2_1pb0y"]
+[ext_resource type="Texture2D" uid="uid://ciy3kxih06mi2" path="res://assets/texture/panel-802x97-marble.png" id="3_olc8l"]
 [ext_resource type="FontFile" uid="uid://wq2dq0yqhk7h" path="res://assets/font/PeaberryMono.ttf" id="4_1pb0y"]
 [ext_resource type="Texture2D" uid="uid://vsnfw6tp8ek2" path="res://assets/texture/button-52x52-marble.png" id="5_olc8l"]
 [ext_resource type="Texture2D" uid="uid://b2402rkbbu6jw" path="res://assets/icon/question.png" id="6_ts6t1"]
@@ -12,11 +12,12 @@
 
 [node name="MainMenuScene" type="Node2D"]
 script = ExtResource("1_olc8l")
+metadata/_edit_vertical_guides_ = [815.0, 15.0]
 
 [node name="TxtrMainBg" type="TextureRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_hvgvx")
+texture = ExtResource("2_1pb0y")
 
 [node name="CtnrMenu" type="MarginContainer" parent="."]
 offset_right = 40.0
@@ -34,7 +35,7 @@ theme_override_constants/separation = 0
 
 [node name="TxtrTitle" type="TextureRect" parent="CtnrMenu/VBoxMenu"]
 layout_mode = 2
-texture = ExtResource("3_itgty")
+texture = ExtResource("3_olc8l")
 
 [node name="LabelTitle" type="Label" parent="CtnrMenu/VBoxMenu/TxtrTitle"]
 layout_mode = 1
@@ -123,9 +124,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 15.0
-offset_top = 777.0
-offset_right = 465.0
-offset_bottom = 817.0
+offset_top = 364.0
+offset_right = 815.0
+offset_bottom = 461.0
 grow_vertical = 0
 size_flags_horizontal = 6
 size_flags_vertical = 4
@@ -153,7 +154,7 @@ icon_alignment = 1
 [node name="NineRectStatus" type="NinePatchRect" parent="HBoxBottom"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("3_itgty")
+texture = ExtResource("3_olc8l")
 patch_margin_left = 15
 patch_margin_top = 15
 patch_margin_right = 15

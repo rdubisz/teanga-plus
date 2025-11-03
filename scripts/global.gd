@@ -2,6 +2,7 @@ extends Node
 # from:
 # https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html
 
+var current_lesson: Lesson = null
 var current_scene = null
 var current_results = null
 

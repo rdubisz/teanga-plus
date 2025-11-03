@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceneao5iwqheu"
-path="res://.godot/imported/frame-full-size-marble.png-527f1ee64d67bd655e7286e129a6113e.ctex"
+uid="uid://cfxjmvblxcqye"
+path="res://.godot/imported/bg-cliffs.png-b543ba73b52f2924f256b5f41a60e898.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/texture/frame-full-size-marble.png"
-dest_files=["res://.godot/imported/frame-full-size-marble.png-527f1ee64d67bd655e7286e129a6113e.ctex"]
+source_file="res://assets/texture/bg-cliffs.png"
+dest_files=["res://.godot/imported/bg-cliffs.png-b543ba73b52f2924f256b5f41a60e898.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://37jefh5dbj2"
-path="res://.godot/imported/panel-450x97-marble.png-564be4e2e2bf9be45bc6b98be5e97bb7.ctex"
+uid="uid://ciy3kxih06mi2"
+path="res://.godot/imported/panel-802x97-marble.png-793bdf109306a74424efd38f69b8b024.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/texture/panel-450x97-marble.png"
-dest_files=["res://.godot/imported/panel-450x97-marble.png-564be4e2e2bf9be45bc6b98be5e97bb7.ctex"]
+source_file="res://assets/texture/panel-802x97-marble.png"
+dest_files=["res://.godot/imported/panel-802x97-marble.png-793bdf109306a74424efd38f69b8b024.ctex"]
 
 [params]
 

@@ -19,12 +19,16 @@ config/icon="res://assets/icon/icon.svg"
 
 Global="*res://scripts/global.gd"
 
+[debug]
+
+settings/gdscript/always_track_call_stacks=true
+settings/gdscript/always_track_local_variables=true
+
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=832
+window/size/viewport_width=832
+window/size/viewport_height=480
 window/stretch/mode="canvas_items"
-window/handheld/orientation=1
 
 [editor]
 

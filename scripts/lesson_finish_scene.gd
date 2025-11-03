@@ -6,7 +6,7 @@ extends Node2D
 @onready var lbl_correct: Label = $HBoxContainer/NinePatchRectCorrect/LabelCorrect
 @onready var lbl_wrong: Label = $HBoxContainer/NinePatchRectWrong/LabelWrong
 
-var steps: Array[ChooseFromNineStep]
+var steps: Array[Step1in9]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -50,5 +50,4 @@ func _process(delta: float) -> void:
 
 
 func _on_button_exit_pressed() -> void:
-	#get_tree().change_scene_to_file("res://scene/main_menu_scene.tscn")
 	Global.goto_scene("res://scene/main_menu_scene.tscn")

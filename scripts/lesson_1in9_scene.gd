@@ -1,6 +1,6 @@
-extends Node2D
+class_name Lesson1in9Scene extends Node2D
 
-var lesson :ChooseFromNineLesson
+var lesson :Lesson1in9
 
 @onready var lbl_query: Label = $MarginContainer/VBoxContainer/TextureRect/LabelQuery
 @onready var lbl_progress: Label = $HBoxContainer/NinePatchRectProgress/LabelProgress
@@ -19,9 +19,7 @@ var lesson :ChooseFromNineLesson
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(OS.get_data_dir())
-	lesson = ChooseFromNineLesson.new(40, "Numbers 0-100", "numbers.1in9.en2ie", 9)
-	print(str(lesson.steps))
+	lesson = Global.current_lesson
 	draw_step(lesson.current_step_number)
 
 
@@ -67,6 +65,10 @@ func process_answer(step_num: int, option_chosen: String):
 	var result := lesson.steps[lesson.current_step_number].check_choice()
 	scale_component(lbl_progress, 1.1)
 	if result > 0:
+		if ResourceLoader.exists("res://assets/sound/" + option_chosen + ".wav"):
+			$AudioCorrect.stream = load("res://assets/sound/" + option_chosen + ".wav")
+		else:
+			$AudioCorrect.stream = load("res://assets/sound/ta.ogg")
 		$AudioCorrect.play()
 		btn_exit.icon = load("res://assets/icon/face_a.png")
 		scale_component(lbl_correct, 1.1)
@@ -125,7 +127,6 @@ func _on_button_answer_8_pressed() -> void:
 
 
 func _on_button_exit_pressed() -> void:
-	#get_tree().change_scene_to_file("res://scene/main_menu_scene.tscn")
 	Global.goto_scene("res://scene/main_menu_scene.tscn")
 
 

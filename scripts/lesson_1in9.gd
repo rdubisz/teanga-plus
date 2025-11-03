@@ -1,9 +1,8 @@
 # A class describing a lesson in "choose 1 in 9"
 
-class_name ChooseFromNineLesson extends Node
+class_name Lesson1in9 extends Lesson
 
 
-var lesson_name: String
 var number_of_choices: int
 # Raw data of Dictionary[String,Array[String]], example:
 # { "question": ["correct1", "correct2"] }
@@ -11,7 +10,7 @@ var raw_data: Dictionary
 # An array of all answers for any question in raw data
 var all_answers: Array[String]
 # An Array of steps - they can be answered or not
-var steps: Array[ChooseFromNineStep]
+var steps: Array[Step1in9]
 var current_step_number := 0
 
 
@@ -51,7 +50,7 @@ func prepare_all_steps(a_number_of_steps: int, only_first_x_data_rows: int = -1)
 		steps.append(prepare_single_step(step_num, only_first_x_data_rows))
 
 
-func prepare_single_step(step_num: int, only_first_x_data_rows: int = -1) -> ChooseFromNineStep:
+func prepare_single_step(step_num: int, only_first_x_data_rows: int = -1) -> Step1in9:
 	var range_reduced := raw_data.size() -1
 	if only_first_x_data_rows > -1:
 		range_reduced = range_reduced % only_first_x_data_rows
@@ -60,7 +59,7 @@ func prepare_single_step(step_num: int, only_first_x_data_rows: int = -1) -> Cho
 	var correct_answers: Array[String] 
 	correct_answers.assign(raw_data[question])
 	print("raw_data_entry " + question + ": " + str(correct_answers))
-	var step := ChooseFromNineStep.new(question, correct_answers, all_answers)
+	var step := Step1in9.new(question, correct_answers, all_answers)
 	print("created step: " + str(step))
 	return step
 	
