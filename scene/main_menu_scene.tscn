@@ -55,7 +55,12 @@ theme_override_fonts/font = ExtResource("4_1pb0y")
 theme_override_font_sizes/font_size = 54
 text = "Teanga+"
 
-[node name="NineRect1" type="NinePatchRect" parent="CtnrMenu/VBoxMenu"]
+[node name="GridContainer" type="GridContainer" parent="CtnrMenu/VBoxMenu"]
+layout_mode = 2
+columns = 2
+
+[node name="NineRectNumbersOneToTenToIe" type="NinePatchRect" parent="CtnrMenu/VBoxMenu/GridContainer"]
+custom_minimum_size = Vector2(398, 0)
 layout_mode = 2
 texture = ExtResource("5_olc8l")
 patch_margin_left = 15
@@ -63,7 +68,7 @@ patch_margin_top = 15
 patch_margin_right = 15
 patch_margin_bottom = 15
 
-[node name="BtnLessonNumbersOneToTen" type="Button" parent="CtnrMenu/VBoxMenu/NineRect1"]
+[node name="BtnLessonNumbersOneToTenToIe" type="Button" parent="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersOneToTenToIe"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,11 +77,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("4_1pb0y")
-text = "Numbers 1-10"
+text = "Numbers 1-10 [digits -> IE]"
 flat = true
 icon_alignment = 1
 
-[node name="NineRect2" type="NinePatchRect" parent="CtnrMenu/VBoxMenu"]
+[node name="NineRectNumbersOneToTenToDigit" type="NinePatchRect" parent="CtnrMenu/VBoxMenu/GridContainer"]
+custom_minimum_size = Vector2(398, 0)
 layout_mode = 2
 texture = ExtResource("5_olc8l")
 patch_margin_left = 15
@@ -84,7 +90,7 @@ patch_margin_top = 15
 patch_margin_right = 15
 patch_margin_bottom = 15
 
-[node name="BtnLessonNumbersZeroToHundred" type="Button" parent="CtnrMenu/VBoxMenu/NineRect2"]
+[node name="BtnLessonNumbersOneToTenToDigit" type="Button" parent="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersOneToTenToDigit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,11 +99,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("4_1pb0y")
-text = "Numbers 0-100"
+text = "Numbers 1-10  [IE -> digits]"
 flat = true
 icon_alignment = 1
 
-[node name="NineRect3" type="NinePatchRect" parent="CtnrMenu/VBoxMenu"]
+[node name="NineRectNumbersZeroToHundredToIe" type="NinePatchRect" parent="CtnrMenu/VBoxMenu/GridContainer"]
+custom_minimum_size = Vector2(398, 0)
 layout_mode = 2
 texture = ExtResource("5_olc8l")
 patch_margin_left = 15
@@ -105,7 +112,7 @@ patch_margin_top = 15
 patch_margin_right = 15
 patch_margin_bottom = 15
 
-[node name="BtLessonSubjectPronouns" type="Button" parent="CtnrMenu/VBoxMenu/NineRect3"]
+[node name="BtnLessonNumbersZeroToHundredToIe" type="Button" parent="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersZeroToHundredToIe"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,7 +121,73 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("4_1pb0y")
-text = "Subject pronouns"
+text = "Numbers 0-100 [digits -> IE]"
+flat = true
+icon_alignment = 1
+
+[node name="NineRectNumbersZeroToHundredToDigit" type="NinePatchRect" parent="CtnrMenu/VBoxMenu/GridContainer"]
+custom_minimum_size = Vector2(398, 0)
+layout_mode = 2
+texture = ExtResource("5_olc8l")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="BtnLessonNumbersZeroToHundredToDigit" type="Button" parent="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersZeroToHundredToDigit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("4_1pb0y")
+text = "Numbers 0-100  [IE -> digits]"
+flat = true
+icon_alignment = 1
+
+[node name="NineRectSubjectPronounsToIe" type="NinePatchRect" parent="CtnrMenu/VBoxMenu/GridContainer"]
+custom_minimum_size = Vector2(398, 0)
+layout_mode = 2
+texture = ExtResource("5_olc8l")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="BtLessonSubjectPronounsToIe" type="Button" parent="CtnrMenu/VBoxMenu/GridContainer/NineRectSubjectPronounsToIe"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("4_1pb0y")
+text = "Pronouns [EN -> IE]"
+flat = true
+icon_alignment = 1
+
+[node name="NineRectSubjectPronounsToEn" type="NinePatchRect" parent="CtnrMenu/VBoxMenu/GridContainer"]
+custom_minimum_size = Vector2(398, 0)
+layout_mode = 2
+texture = ExtResource("5_olc8l")
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+
+[node name="BtLessonSubjectPronounsToEn" type="Button" parent="CtnrMenu/VBoxMenu/GridContainer/NineRectSubjectPronounsToEn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.43529412, 0.43529412, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("4_1pb0y")
+text = "Pronouns [IE -> EN]"
 flat = true
 icon_alignment = 1
 
@@ -203,8 +276,11 @@ stream = ExtResource("8_1pb0y")
 [node name="AudioExit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_olc8l")
 
-[connection signal="pressed" from="CtnrMenu/VBoxMenu/NineRect1/BtnLessonNumbersOneToTen" to="." method="_on_btn_lesson_numbers_one_to_ten_pressed"]
-[connection signal="pressed" from="CtnrMenu/VBoxMenu/NineRect2/BtnLessonNumbersZeroToHundred" to="." method="_on_btn_lesson_numbers_zero_to_hundred_pressed"]
-[connection signal="pressed" from="CtnrMenu/VBoxMenu/NineRect3/BtLessonSubjectPronouns" to="." method="_on_bt_lesson_subject_pronouns_pressed"]
+[connection signal="pressed" from="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersOneToTenToIe/BtnLessonNumbersOneToTenToIe" to="." method="_on_btn_lesson_numbers_one_to_ten_to_ie_pressed"]
+[connection signal="pressed" from="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersOneToTenToDigit/BtnLessonNumbersOneToTenToDigit" to="." method="_on_btn_lesson_numbers_one_to_ten_to_digit_pressed"]
+[connection signal="pressed" from="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersZeroToHundredToIe/BtnLessonNumbersZeroToHundredToIe" to="." method="_on_btn_lesson_numbers_zero_to_hundred_to_ie_pressed"]
+[connection signal="pressed" from="CtnrMenu/VBoxMenu/GridContainer/NineRectNumbersZeroToHundredToDigit/BtnLessonNumbersZeroToHundredToDigit" to="." method="_on_btn_lesson_numbers_zero_to_hundred_to_digit_pressed"]
+[connection signal="pressed" from="CtnrMenu/VBoxMenu/GridContainer/NineRectSubjectPronounsToIe/BtLessonSubjectPronounsToIe" to="." method="_on_bt_lesson_subject_pronouns_to_ie_pressed"]
+[connection signal="pressed" from="CtnrMenu/VBoxMenu/GridContainer/NineRectSubjectPronounsToEn/BtLessonSubjectPronounsToEn" to="." method="_on_bt_lesson_subject_pronouns_to_en_pressed"]
 [connection signal="pressed" from="HBoxBottom/NineRectExit/BtnExit" to="." method="_on_btn_exit_pressed"]
 [connection signal="finished" from="AudioExit" to="." method="_on_audio_exit_finished"]

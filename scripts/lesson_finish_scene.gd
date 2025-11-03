@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var grid_steps: GridContainer = $MarginContainer/VBoxContainer/GridSteps
+@onready var grid_steps: GridContainer = $MarginContainer/VBoxContainer/MarginContainer/GridSteps
 @onready var texture_rect: TextureRect = $MarginContainer/VBoxContainer/GridSteps/TextureRect
 @onready var lbl_progress: Label = $HBoxContainer/NinePatchRectProgress/LabelProgress
 @onready var lbl_correct: Label = $HBoxContainer/NinePatchRectCorrect/LabelCorrect
